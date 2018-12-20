@@ -5,7 +5,7 @@ export default class MailForm extends React.Component {
   submitMail() {
     alert("Your e-mail has been sent.");
   }
-  delete() {
+  reset() {
     document.getElementById("mail-inputs").reset();
   }
   render() {
@@ -15,15 +15,22 @@ export default class MailForm extends React.Component {
           <p>Neue Nachricht</p>
         </div>
         <form id="mail-inputs">
-          <input placeholder="An" className="input" />
+          <input placeholder="An" className="input" type="email" required />
           <input placeholder="Betreff" className="input" />
-          <textarea className="textarea" />
+          <textarea className="textarea" required />
           <button className="submit-button" onClick={this.submitMail}>
             Senden
           </button>
-          <i className="fa fa-paperclip" />
-          <i className="fa fa-trash" onClick={this.delete} />
         </form>
+        <div className="attachement">
+          <div className="image-upload">
+            <label for="file-input">
+              <i className="fa fa-paperclip" />
+            </label>
+            <input id="file-input" type="file" />
+          </div>
+        </div>
+        <i className="fa fa-trash" onClick={this.reset} />
       </div>
     );
   }

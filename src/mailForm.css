@@ -59,6 +59,7 @@ input:focus {
   margin-top: 10px;
   font-size: 15px;
   border: 0;
+  float: left;
 }
 
 .fa-paperclip::before {
@@ -73,4 +74,17 @@ input:focus {
   font-size: 25px;
   cursor: pointer;
   margin-left: 20px;
+  margin-top: 20px;
+  float: left;
+}
+
+.image-upload > input {
+  visibility: hidden;
+  width: 10px;
+  height: 10px;
+}
+
+.attachement {
+  float: left;
+  margin-top: 20px;
 }
