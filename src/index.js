@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import MailForm from "./mailForm.js";
 import * as serviceWorker from "./serviceWorker";
+import "../node_modules/font-awesome/css/font-awesome.min.css";
 
 ReactDOM.render(<MailForm />, document.getElementById("root"));
 
