@@ -1,6 +1,6 @@
 .mail-form {
   width: 95%;
-  height: 590px;
+  height: 660px;
   margin: auto;
   border-radius: 4px;
   background-color: #fff;
@@ -21,7 +21,7 @@
   font-size: 15px;
 }
 
-.input {
+input {
   width: 98%;
   height: 35px;
   box-sizing: border-box;
@@ -33,7 +33,7 @@
   margin-left: 1%;
 }
 
-.textarea {
+textarea {
   width: 98%;
   height: 400px;
   box-sizing: border-box;

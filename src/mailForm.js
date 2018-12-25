@@ -2,93 +2,95 @@ import React from "react";
 import "./mailForm.css";
 
 export default class MailForm extends React.Component {
-  state = {
-    mails: [],
-    mail: {
-      recipient: "mika.hally",
-      subject: "Xmas",
-      content: "Hello everyone"
-    }
-  };
+  constructor(props) {
+    super(props);
 
-  /*
-  componentDidMount() {
-    this.getInformation();
+    this.state = {
+      recipient: "",
+      subject: "",
+      content: "",
+      cc: "",
+      bcc: ""
+    };
   }
-
-  getInformation = () => {
-    fetch("http://localhost:5000/products")
-      .then(response => response.json())
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch(err => console.error(err));
-  };
-  */
 
   // Sending out request
   sendMail = () => {
-    const { mail } = this.state;
     fetch(
-      `http://localhost:5000/add?recipient=${mail.recipient}&subject=${
-        mail.subject
-      }&content=${mail.content}`
+      `http://localhost:5000/add?recipient=${this.state.recipient}&subject=${
+        this.state.subject
+      }&content=${this.state.content}`
     )
       .then(response => response.json())
       .then(this.getInformation)
       .catch(err => console.error(err));
+    this.delete();
   };
-  // Resetting all input values to undefined
-  reset = function() {
-    document.getElementById("mail-inputs").reset();
+
+  delete = () => {
+    const { recipient } = this.state;
+    const { cc } = this.state;
+    const { bcc } = this.state;
+    const { subject } = this.state;
+    const { content } = this.state;
+    this.setState({
+      recipient: "",
+      cc: "",
+      bcc: "",
+      subject: "",
+      content: ""
+    });
   };
+
   render() {
-    const { mails, mail } = this.state;
     return (
       <div className="mail-form">
         <div className="navbar_wrapper">
           <p>Neue Nachricht</p>
         </div>
-        <div id="mail-inputs">
-          <input
-            placeholder="An"
-            className="input"
-            type="email"
-            required
-            value={mail.recipient}
-            onChange={e =>
-              this.setState({ mail: { ...mail, recipient: e.target.value } })
-            }
-          />
-          <input
-            placeholder="Betreff"
-            className="input"
-            value={mail.subject}
-            onChange={e =>
-              this.setState({ mail: { ...mail, subject: e.target.value } })
-            }
-          />
-          <textarea
-            className="textarea"
-            required
-            value={mail.content}
-            onChange={e =>
-              this.setState({ mail: { ...mail, content: e.target.value } })
-            }
-          />
-          <button className="submit-button" onClick={this.sendMail}>
-            Senden
-          </button>
-        </div>
-        <div className="attachement">
-          <div className="image-upload">
-            <label for="file-input">
-              <i className="fa fa-paperclip" />
-            </label>
-            <input id="file-input" type="file" />
+        <div>
+          <div>
+            <input
+              placeholder="An"
+              type="email"
+              required
+              value={this.state.recipient}
+              onChange={e => this.setState({ recipient: e.target.value })}
+            />
+            <input
+              placeholder="Cc"
+              value={this.state.cc}
+              onChange={e => this.setState({ cc: e.target.value })}
+            />
+            <input
+              placeholder="Bcc"
+              value={this.state.bcc}
+              onChange={e => this.setState({ bcc: e.target.value })}
+            />
+            <input
+              placeholder="Betreff"
+              value={this.state.subject}
+              onChange={e => this.setState({ subject: e.target.value })}
+            />
+            <textarea
+              required
+              value={this.state.content}
+              onChange={e => this.setState({ content: e.target.value })}
+            />
+            <button className="submit-button" onClick={this.sendMail}>
+              Senden
+            </button>
           </div>
+          <div className="attachement">
+            <div className="image-upload">
+              <label for="file-input">
+                <i className="fa fa-paperclip" />
+              </label>
+              <input id="file-input" type="file" />
+            </div>
+          </div>
+          <i className="fa fa-trash" onClick={this.delete} />
         </div>
-        <i className="fa fa-trash" onClick={this.reset} />
       </div>
     );
   }
